@@ -58,7 +58,7 @@ export class AppComponent {
   constructor(private formService: FormGeneratorService) { }
 
   public ngOnInit(): void {
-    const gg = this.formService.getAnkets().subscribe({
+    const data = this.formService.getAnkets().subscribe({
       next: (data: UserData[]) => {
         console.log("gg = ", data)
         console.log("gg = ",)
@@ -70,8 +70,6 @@ export class AppComponent {
         console.log("Ошибка: ", error)
       }
     })
-
-    console.log("data = ", gg)
   }
 
   public add_places_studied() {
@@ -106,7 +104,6 @@ export class AppComponent {
     this.formService.removeAnketa(id).subscribe({
       next: (response) => {
         console.log("Форма успешно удалена");
-        // Обновляем список форм после удаления
         this.myForms = this.myForms.filter(form => form._id !== id);
       },
       error: (error) => {
@@ -133,14 +130,11 @@ export class AppComponent {
         console.log("Ошибка при обновлении формы", error);
       }
     });
-    //заново получаем весь список, это не совсем правильно
+
     this.formService.getAnkets().subscribe({
       next: (data: UserData[]) => {
         console.log("gg = ", data)
-        console.log("gg = ",)
         this.myForms = data
-
-        console.log("ff = ", this.myForms)
       },
       error: (error) => {
         console.log("Ошибка: ", error)

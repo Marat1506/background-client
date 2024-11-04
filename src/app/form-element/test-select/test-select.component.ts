@@ -43,15 +43,11 @@ export class TestSelectComponent {
     this.onTouched = fn;
   }
 
-  setDisabledState?(isDisabled: boolean): void {
-    // Опционально: обработка, если компонент должен быть отключен
-  }
-
   onSelectChange(event: Event): void {
     const target = event.target as HTMLSelectElement;
     const value = target ? target.value : '';
     this.selectValue = value;
-    this.onChange(value); // Обновляем значение в контроллере формы
+    this.onChange(value);
     this.onTouched();
   }
   onSelectBlur(): void {

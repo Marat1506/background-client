@@ -43,15 +43,13 @@ export class TestInputComponent implements ControlValueAccessor {
     this.onTouched = fn;
   }
 
-  setDisabledState?(isDisabled: boolean): void {
-    // Опционально: обработка, если компонент должен быть отключен
-  }
+  
 
   onInputChange(event: Event): void {
     const target = event.target as HTMLInputElement;
     const value = target ? target.value : '';
     this.inputValue = value;
-    this.onChange(value); // Убедитесь, что это передает значение в контроллер формы
+    this.onChange(value);
     this.onTouched();
   }
   onInputBlur(): void {

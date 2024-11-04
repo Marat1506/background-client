@@ -43,15 +43,13 @@ export class TestNumberComponent {
     this.onTouched = fn;
   }
 
-  setDisabledState?(isDisabled: boolean): void {
-    // Опционально: обработка, если компонент должен быть отключен
-  }
+  
 
   onNumberChange(event: Event): void {
     const target = event.target as HTMLInputElement;
     const value = target ? target.value : '';
     this.numberValue = value;
-    this.onChange(value); // Убедитесь, что это передает значение в контроллер формы
+    this.onChange(value); 
     this.onTouched();
   }
   onNumberBlur(): void {
