@@ -1,0 +1,8 @@
+
+<input [style.width]="styles.width"
+[style.height]="styles.height"
+ type="number" 
+ [value]="numberValue"
+ (input)="onNumberChange($event)"
+ (blur)="onNumberBlur()"
+ />

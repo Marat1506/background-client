@@ -1,0 +1,140 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+.container {
+    display: flex;
+}
+@media (max-width: 908px) {
+    .container {
+        flex-direction: column;
+    }
+}
+.container-left {
+    display: flex;
+    flex-direction: column;
+}
+
+.container-header {
+    margin-left: 120px;
+}
+
+
+.container-group {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 15px;
+}
+
+.container-group-description {
+    font-size: 13px;
+    color: rgba(157, 157, 157, 1);
+    margin-left: 180px;
+    margin-top: -10px; 
+    margin-bottom: 15px; 
+}
+.container-places-studied{
+    display: flex;
+    gap: 10px;
+}
+.container-add-places-studied{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+    text-align: left;
+} 
+.container-add-places-studied label {
+    display: flex;
+    text-align: left;
+    
+}
+.studied-places-section{
+    display: flex;
+    flex-direction: column;
+}
+.container-group-btn-add {
+    border: 1px solid rgba(0, 0, 0, 1);
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 1);
+    width: 26px;
+    height: 26px;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.container-group-btn-delete {
+    border: 1px solid rgba(0, 0, 0, 1);
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 1);
+    width: 26px;
+    height: 26px;
+    font-size: 20px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.container-places-btns{
+    display: flex;
+    gap: 5px;
+}
+.container-group label {
+    width: 150px; 
+    text-align: right; 
+}
+
+.container-btn {
+    border: 1px solid rgba(255, 231, 131, 1);
+    width: 139px;
+    height: 52px;
+    background: rgba(255, 231, 131, 1);
+    color: rgba(0, 0, 0, 1);
+}
+
+.anketa{
+    border: 1px solid black;
+    border-radius: 20px;
+    display: flex;
+    width: 330px;
+    height: 60px;
+    text-align: center;
+    align-items: center;
+    justify-content: space-around;
+    font-size: x-large;
+}
+
+.ankets {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.from-btn{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.container-btn {
+    border: 1px solid rgba(255, 231, 131, 1);
+    width: 139px;
+    height: 52px;
+    background: rgba(255, 231, 131, 1);
+    color: rgba(0, 0, 0, 1);
+    transition: background-color 0.3s, transform 0.1s;
+    cursor: pointer; 
+}
+
+.container-btn:disabled {
+    background: rgba(255, 231, 131, 1);
+    color: rgba(100, 100, 100, 1);
+    cursor: not-allowed; 
+}
+
+.container-btn:active {
+    transform: scale(0.95); 
+    background-color: rgba(255, 200, 100, 1); 
+}

@@ -1,0 +1,9 @@
+<select 
+  [style.width]="styles.width" 
+  [style.height]="styles.height"
+  [(ngModel)]="selectValue" 
+  (change)="onSelectChange($event)"
+  (blur)="onSelectBlur()"
+>
+  <option *ngFor="let param of params" [value]="param">{{ param }}</option>
+</select>

@@ -1,0 +1,19 @@
+<div class="skills-container">
+    <div *ngFor="let skill of skills" class="skill-item">
+      <input class="skill-checkbox"
+        type="checkbox"
+        [checked]="selectedSkills.includes(skill)"
+        (change)="toggleSkill(skill)"
+      />
+      <label>{{ skill }}</label>
+    </div>
+    <div class="skill-item">
+      <input class="skill-checkbox"
+        type="checkbox"
+        [checked]="selectedSkills.length === skills.length"
+        (change)="toggleAllSelection()"
+      />
+      <label>Выделить все</label>
+    </div>
+  </div>
+  
