@@ -132,6 +132,7 @@ export class AppComponent {
       next: (response) => {
         console.log("Форма успешно обновлена: ", response);
         this.myForm.reset()
+        this.number_places_studied = 1
       },
       error: (error) => {
         console.log("Ошибка при обновлении формы", error);
@@ -182,7 +183,7 @@ export class AppComponent {
     })
   }
 
-  public cancelEdit() {
+  public cancelEdit() { //Очищаются все поля, кроме поля для вуза. Наверное, это связано с тем, что поле для вузов является FormArray.
     this.isEdit = !this.isEdit
     this.myForm.reset()
 
