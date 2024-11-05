@@ -139,7 +139,7 @@ export class AppComponent {
       }
     });
 
-    // получаем все анкеты заново, но это не совсем правильно
+    // получаем все анкеты заново
     this.formService.getAnkets().subscribe({
       next: (data: UserData[]) => {
         console.log("gg = ", data)
