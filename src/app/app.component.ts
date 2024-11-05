@@ -12,7 +12,7 @@ import { ReactiveFormsModule, Validators } from '@angular/forms';
 import { FormControl, FormGroup } from '@angular/forms';
 
 
-interface UserData {
+export interface UserData {
   name: string;
   age: number;
   family_status: string;
@@ -38,7 +38,6 @@ interface UserData {
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  formConfig: any;
   number_places_studied: number = 1;
   myForms: UserData[] = [];
   isEdit:boolean = false;
@@ -46,7 +45,7 @@ export class AppComponent {
   formEdit: UserData[] = []
   public myForm = new FormGroup({
     name: new FormControl('', Validators.required),
-    age: new FormControl('', Validators.required),
+    age: new FormControl(0, Validators.required),
     family_status: new FormControl('', Validators.required),
     university: new FormControl('', Validators.required),
     place_birth: new FormControl('', Validators.required),
@@ -60,11 +59,7 @@ export class AppComponent {
   public ngOnInit(): void {
     const data = this.formService.getAnkets().subscribe({
       next: (data: UserData[]) => {
-        console.log("gg = ", data)
-        console.log("gg = ",)
         this.myForms = data
-
-        console.log("ff = ", this.myForms)
       },
       error: (error) => {
         console.log("Ошибка: ", error)
@@ -73,7 +68,6 @@ export class AppComponent {
   }
 
   public add_places_studied() {
-    console.log("dkmdf")
     this.number_places_studied++;
   }
 
@@ -100,11 +94,10 @@ export class AppComponent {
   }
 
   public delete_anket(id: string) {
-    console.log("ID для удаления: ", id);
     this.formService.removeAnketa(id).subscribe({
       next: (response) => {
         console.log("Форма успешно удалена");
-        this.myForms = this.myForms.filter(form => form._id !== id);
+        this.myForms = this.myForms.filter(form => form._id !== id); // обновляем формы на странице 
       },
       error: (error) => {
         console.log("Ошибка при удалении формы", error);
@@ -131,6 +124,7 @@ export class AppComponent {
       }
     });
 
+    // получаем все анкеты заново, но это не совсем правильно
     this.formService.getAnkets().subscribe({
       next: (data: UserData[]) => {
         console.log("gg = ", data)
@@ -152,7 +146,7 @@ export class AppComponent {
         
         const formData = {
           name: data.name,
-          age: data.age.toString(), 
+          age: data.age, 
           family_status: data.family_status,
           university: data.university,
           place_birth: data.place_birth,
