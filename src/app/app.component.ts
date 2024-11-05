@@ -8,7 +8,7 @@ import { TestSelectComponent } from "./form-element/test-select/test-select.comp
 import { TestCheckboxComponent } from "./form-element/test-checkbox/test-checkbox.component";
 import { TestNumberComponent } from "./form-element/test-number/test-number.component";
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormArray, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FormControl, FormGroup } from '@angular/forms';
 
 
@@ -16,7 +16,7 @@ export interface UserData {
   name: string;
   age: number;
   family_status: string;
-  university: string;
+  university: string[];
   place_birth: string;
   skills: string[];
   _id: string;
@@ -47,7 +47,7 @@ export class AppComponent {
     name: new FormControl('', Validators.required),
     age: new FormControl(0, Validators.required),
     family_status: new FormControl('', Validators.required),
-    university: new FormControl('', Validators.required),
+    university: new FormArray([new FormControl('', Validators.required)]),
     place_birth: new FormControl('', Validators.required),
     skills: new FormControl<string[] | null>([]),
   })
@@ -55,6 +55,7 @@ export class AppComponent {
 
 
   constructor(private formService: FormGeneratorService) { }
+
 
   public ngOnInit(): void {
     const data = this.formService.getAnkets().subscribe({
@@ -67,21 +68,34 @@ export class AppComponent {
     })
   }
 
+  get universityControls() {
+    return this.myForm.get('university') as FormArray;
+  }
+
   public add_places_studied() {
     this.number_places_studied++;
+    this.universityControls.push(new FormControl('', Validators.required));
   }
 
   public delete_places_studied() {
     this.number_places_studied--;
+    this.universityControls.removeAt(this.universityControls.length - 1);
   }
 
   public send_form() {
     if (this.myForm.valid) {
+      const formData = {
+        ...this.myForm.value,
+        university: this.universityControls.value // Если указано больше 2 и более ВУЗов
+      };
       this.formService.addAnketa(this.myForm.value).subscribe({
         next: (response: any) => {
           console.log("Форма успешно отправлена: ", response);
           this.myForms.push(response);
           this.myForm.reset();
+          this.number_places_studied = 1;
+          this.universityControls.clear();
+          this.universityControls.push(new FormControl('', Validators.required));
         },
         error: (error) => {
           console.log("Ошибка при отправке формы", error);
@@ -140,6 +154,7 @@ export class AppComponent {
     this.isEdit = !this.isEdit
     this.currentEditingId = id;
     console.log("EDIT_ID = ", id)
+
     this.formService.getAnketaById(id).subscribe({
       next: (data: UserData) => {
         console.log("Изменение формы...: ", data)
@@ -153,6 +168,13 @@ export class AppComponent {
           skills: data.skills
         };
         this.myForm.patchValue(formData);
+        this.universityControls.clear()
+
+        data.university.forEach((uni) => {
+          this.universityControls.push(new FormControl(uni, Validators.required));
+        })
+
+        this.number_places_studied = data.university.length;
       },
       error: (error: string) => {
         console.log("Ошибка при изменении формы 2:" + error)
@@ -162,14 +184,10 @@ export class AppComponent {
 
   public cancelEdit() {
     this.isEdit = !this.isEdit
-    const formData = {
-      name: "",
-      age: null, 
-      family_status: "",
-      university: "",
-      place_birth: null,
-      skills: []
-    };
-    this.myForm.patchValue(formData);
+    this.myForm.reset()
+
+    this.number_places_studied = 1
+    
+    
   }
 }

@@ -28,9 +28,9 @@
 
     <div class="container-places-studied">
       <div class="studied-places-section">
-        <div class="container-group" *ngFor="let n of [].constructor(number_places_studied); let i = index">
+        <div class="container-group" formArrayName="university" *ngFor="let n of [].constructor(number_places_studied); let i = index">
           <label for="university">ВУЗ</label>
-          <app-test-input id="university" formControlName="university" [styles]="{width: '300px', height: '44px'}"
+          <app-test-input id="university" [formControlName]="i" [styles]="{width: '300px', height: '44px'}"
             [type]="'text'" [placeholder]="'Например, ВолгГУ'"></app-test-input>
           @if (!myForm.controls.university.valid && myForm.controls.university.touched){
           <small style="color: red;">Это поле обязательное для заполнения </small>

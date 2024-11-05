@@ -5,7 +5,7 @@ import { UserData } from './app.component';
 @Injectable({
   providedIn: 'root'
 })
-// any :(
+// any :)
 export class FormGeneratorService {
   private base_url = 'http://localhost:3000';
 
